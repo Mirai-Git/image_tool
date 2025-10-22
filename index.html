@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>画像バイナリ処理ツール</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main class="app">
+    <div class="container">
+      <!-- 左側：画像プレビュー -->
+      <div class="preview-area">
+        <div id="dropzone" class="dropzone">
+          <p>画像をドラッグ＆ドロップ<br>または</p>
+          <input type="file" id="fileInput" accept="image/*" class="file-input">
+          <label for="fileInput" class="file-input-label">ファイルを選択</label>
+        </div>
+        <canvas id="previewCanvas" class="preview-canvas"></canvas>
+        <div class="progress-bar">
+          <div class="progress-bar-inner" id="progressBar"></div>
+        </div>
+      </div>
+
+      <!-- 右側：コントロール -->
+      <div class="controls">
+        <div class="control-group">
+          <label for="threshold">閾値 (0-255):</label>
+          <input type="range" id="threshold" min="0" max="255" value="128" class="slider">
+          <input type="number" id="thresholdNumber" min="0" max="255" value="128" class="number-input">
+        </div>
+
+        <div class="control-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="invert">
+            出力を反転
+          </label>
+        </div>
+
+        <div class="control-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="showEdges" checked>
+            輪郭を表示
+          </label>
+        </div>
+
+        <button id="processButton" class="primary-button" disabled>処理実行</button>
+        <button id="downloadButton" class="secondary-button" disabled>画像保存</button>
+
+        <div id="status" class="status"></div>
+      </div>
+    </div>
+  </main>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
