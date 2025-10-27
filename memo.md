@@ -1,0 +1,1 @@
+(https://webrandum.net/gitignore-io/){gitignoreガイド}
