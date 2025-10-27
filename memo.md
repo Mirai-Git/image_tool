@@ -1,1 +1,1 @@
-(https://webrandum.net/gitignore-io/){gitignoreガイド}
+[gitignoreガイド](https://webrandum.net/gitignore-io/)
