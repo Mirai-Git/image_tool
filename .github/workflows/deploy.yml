@@ -27,8 +27,9 @@ jobs:
         with:
           node-version: '20'
 
+      # Add your build steps here, for example:
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Show repository layout (for debugging)
         run: ls -la && ls -la src || true
