@@ -167,7 +167,7 @@ class ImageProcessor {
 
       // 処理を小さなステップに分割
       await new Promise<void>(resolve => {
-        requestAnimationFrame(async () => {
+        requestAnimationFrame( () => {
           // グレイスケール変換
           this.showProgress(20);
           const grayImage = grayscale(this.originalImage!);
