@@ -1,8 +1,8 @@
-import { defineConfig } from 'vitest/config'
+import { defineConfig } from 'vite'
 
 export default defineConfig({
-  test: {
-    environment: 'jsdom',
-    include: ['src/tests/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}'],
-  },
+  base: '/image_tool/',  // リポジトリ名を指定
+  build: {
+    outDir: 'dist',
+  }
 })
