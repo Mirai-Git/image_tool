@@ -41,12 +41,10 @@ class ImageProcessor {
       const mouseY = e.offsetY;
       
       // 前の状態を保存
-      const oldScale = this.scale;
       this.scale *= delta;
       this.scale = Math.min(Math.max(0.1, this.scale), 10);
 
       // マウス位置を中心にズーム
-      const scaleRatio = this.scale / oldScale;
       const rect = this.canvas.getBoundingClientRect();
       const x = mouseX - rect.left;
       const y = mouseY - rect.top;
@@ -180,7 +178,7 @@ class ImageProcessor {
             threshold: parseInt(this.thresholdSlider.value),
             invert: this.invertCheckbox.checked
           };
-          const { binary, imageData: binaryImage } = binarize(grayImage, options);
+          const { imageData: binaryImage } = binarize(grayImage, options);
 
           this.showProgress(60);
           
@@ -247,13 +245,7 @@ class ImageProcessor {
     }
   }
 
-  private resetZoom() {
-    this.scale = 1;
-    this.canvas.style.transform = '';
-    this.canvas.style.transformOrigin = '';
-    this.canvas.style.left = '';
-    this.canvas.style.top = '';
-  }
+
 }
 
 // アプリケーション初期化

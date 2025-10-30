@@ -1,4 +1,4 @@
-import type { ProcessOptions, BinaryMatrix, ProcessResult, EdgeDetectOptions } from './types.js';
+import type { ProcessOptions, BinaryMatrix, ProcessResult, EdgeDetectOptions } from './types.ts';
 
 /**
  * ImageData をグレイスケールに変換
