@@ -26,6 +26,10 @@ body {
   background-color: var(--background-color);
 }
 
+footer{
+  font-size: 0.8rem;
+}
+
 .app {
   max-width: 1200px;
   margin: 2rem auto;
