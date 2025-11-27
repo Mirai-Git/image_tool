@@ -122,6 +122,7 @@ export function detectEdges(
         Math.sqrt(px * px + py * py) * strength
       ));
 
+
       const idx = (y * width + x) * 4;
       output[idx] = mag;     // R
       output[idx + 1] = mag; // G

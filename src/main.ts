@@ -1,5 +1,5 @@
 import { grayscale, binarize, detectEdges, composite } from './image';
-import type { ProcessOptions } from './types';
+import type { ProcessOptions, EdgeDetectOptions } from './types';
 
 class ImageProcessor {
   private originalImage: ImageData | null = null;
@@ -9,6 +9,8 @@ class ImageProcessor {
   private fileInput: HTMLInputElement;
   private thresholdSlider: HTMLInputElement;
   private thresholdNumber: HTMLInputElement;
+  private strengthSlider: HTMLInputElement;
+  private strengthNumber: HTMLInputElement;
   private invertCheckbox: HTMLInputElement;
   private showEdgesCheckbox: HTMLInputElement;
   private processButton: HTMLButtonElement;
@@ -23,6 +25,8 @@ class ImageProcessor {
     this.fileInput = document.getElementById('fileInput') as HTMLInputElement;
     this.thresholdSlider = document.getElementById('threshold') as HTMLInputElement;
     this.thresholdNumber = document.getElementById('thresholdNumber') as HTMLInputElement;
+    this.strengthSlider = document.getElementById('strength') as HTMLInputElement;
+    this.strengthNumber = document.getElementById('strengthNumber') as HTMLInputElement;
     this.invertCheckbox = document.getElementById('invert') as HTMLInputElement;
     this.showEdgesCheckbox = document.getElementById('showEdges') as HTMLInputElement;
     this.processButton = document.getElementById('processButton') as HTMLButtonElement;
@@ -108,6 +112,15 @@ class ImageProcessor {
       this.thresholdSlider.value = this.thresholdNumber.value;
     });
 
+    // 輪郭閾値の同期
+    this.strengthSlider.addEventListener('input', () => {
+      this.strengthNumber.value = this.strengthSlider.value;
+    });
+
+    this.strengthNumber.addEventListener('input', () => {
+      this.strengthSlider.value = this.strengthNumber.value;
+    });
+
     // 処理実行
     this.processButton.addEventListener('click', () => this.processImage());
 
@@ -185,7 +198,10 @@ class ImageProcessor {
           // 輪郭検出と合成
           if (this.showEdgesCheckbox.checked) {
             this.showProgress(80);
-            const edges = detectEdges(grayImage);
+            const options: EdgeDetectOptions = {
+            strength: parseFloat(this.strengthSlider.value),
+          };
+            const edges = detectEdges(grayImage,options);
             const result = composite(binaryImage, edges, edges);
             this.ctx.putImageData(result, 0, 0);
           } else {
