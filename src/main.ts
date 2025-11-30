@@ -37,6 +37,7 @@ class ImageProcessor {
   }
 
   private setupEventListeners() {
+
     // ズーム＆パン
     this.canvas.addEventListener('wheel', (e) => {
       e.preventDefault();
@@ -54,7 +55,7 @@ class ImageProcessor {
       const y = mouseY - rect.top;
       
       this.canvas.style.transformOrigin = `${x}px ${y}px`;
-      this.canvas.style.transform = `scale(${this.scale})`;
+      this.updateCanvasTransform();
     });
 
     // パン（ドラッグで移動）
@@ -71,9 +72,9 @@ class ImageProcessor {
       this.lastX = e.clientX;
       this.lastY = e.clientY;
 
-      const rect = this.canvas.getBoundingClientRect();
-      this.canvas.style.left = `${rect.left + deltaX}px`;
-      this.canvas.style.top = `${rect.top + deltaY}px`;
+      this.panX += deltaX;
+      this.panY += deltaY;
+      this.updateCanvasTransform();
     });
 
     window.addEventListener('mouseup', () => {
@@ -153,6 +154,12 @@ class ImageProcessor {
       this.ctx.drawImage(img, 0, 0, width, height);
       this.originalImage = this.ctx.getImageData(0, 0, width, height);
 
+      // ズーム・パンをリセット
+      this.scale = 1;
+      this.panX = 0;
+      this.panY = 0;
+      this.updateCanvasTransform();
+
       // UI更新
       this.dropzone.style.display = 'none';
       this.canvas.style.display = 'block';
@@ -164,8 +171,14 @@ class ImageProcessor {
     }
   }
 
+  private updateCanvasTransform() {
+    this.canvas.style.transform = `translate(${this.panX}px, ${this.panY}px) scale(${this.scale})`;
+  }
+
   // プレビューのズーム状態
   private scale = 1;
+  private panX = 0;
+  private panY = 0;
   private isDragging = false;
   private lastX = 0;
   private lastY = 0;
