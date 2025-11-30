@@ -37,7 +37,9 @@ footer{
 }
 
 .container {
-  display: grid;
+  @media(min-width: 600px){
+    display: grid;
+  }
   grid-template-columns: 2fr 1fr;
   gap: 2rem;
   background: white;
