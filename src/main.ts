@@ -15,6 +15,7 @@ class ImageProcessor {
   private showEdgesCheckbox: HTMLInputElement;
   private processButton: HTMLButtonElement;
   private downloadButton: HTMLButtonElement;
+  private resetButton: HTMLButtonElement;
   private statusElement: HTMLElement;
 
   constructor() {
@@ -31,6 +32,7 @@ class ImageProcessor {
     this.showEdgesCheckbox = document.getElementById('showEdges') as HTMLInputElement;
     this.processButton = document.getElementById('processButton') as HTMLButtonElement;
     this.downloadButton = document.getElementById('downloadButton') as HTMLButtonElement;
+    this.resetButton = document.getElementById('resetButton') as HTMLButtonElement;
     this.statusElement = document.getElementById('status')!;
 
     this.setupEventListeners();
@@ -127,6 +129,9 @@ class ImageProcessor {
 
     // ダウンロード
     this.downloadButton.addEventListener('click', () => this.downloadImage());
+
+    //画像リセット
+    this.resetButton.addEventListener('dblclick', () => this.resetImage()  )
   }
 
   private async loadImage(file: File) {
@@ -164,6 +169,7 @@ class ImageProcessor {
       this.dropzone.style.display = 'none';
       this.canvas.style.display = 'block';
       this.processButton.disabled = false;
+      this.resetButton.disabled = false;
 
       URL.revokeObjectURL(img.src);
     } catch (error) {
@@ -235,6 +241,14 @@ class ImageProcessor {
       this.hideProgress();
     }
   }
+
+  private resetImage() {
+      this.ctx.putImageData(this.originalImage!, 0, 0);
+      this.downloadButton.disabled = true;
+      this.processButton.disabled = true;
+      this.canvas.style.display = 'none';
+      this.dropzone.style.display = 'flex';
+    }
 
   private downloadImage() {
     try {

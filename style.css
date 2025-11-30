@@ -146,7 +146,7 @@ footer{
   cursor: pointer;
 }
 
-.primary-button, .secondary-button {
+.primary-button, .secondary-button, .danger-button{
   padding: 0.75rem 1rem;
   border: none;
   border-radius: 4px;
@@ -179,6 +179,23 @@ footer{
 }
 
 .secondary-button:disabled {
+  background: var(--border-color);
+  cursor: not-allowed;
+}
+
+.danger-button {
+  background: var(--error-color);
+  color: white;
+}
+
+.danger-button:hover {
+  background-color: white;
+  border: solid 2px var(--error-color);
+  color: var(--error-color);
+}
+
+
+.danger-button:disabled {
   background: var(--border-color);
   cursor: not-allowed;
 }
